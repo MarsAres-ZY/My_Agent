@@ -89,9 +89,14 @@ class TimeService(private val context: Context) {
 
 object RootAgent {
     fun create(context: Context): LlmAgent {
-        val model = AdkFirebase.create(
-            "gemini-3.8-flash", //gemini-3.7-flash
-            FirebaseAI.getInstance(FirebaseApp.getInstance())
+//        val model = AdkFirebase.create(
+//            "gemini-3.8-flash", //gemini-3.7-flash
+//            FirebaseAI.getInstance(FirebaseApp.getInstance())
+//        )
+        val model = IntranetLlmModel(
+            baseUrl = "http://10.105.1.5:4001",
+            modelName = "moma_deepseek-v4-flash",
+            apiKey = "sk-unaX6qDWUM3UZkz94fqYAA",
         )
         return LlmAgent(
             name = "hello_time_agent",
