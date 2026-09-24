@@ -9,6 +9,7 @@ import com.google.adk.kt.types.Role
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.header
 import io.ktor.client.request.post
@@ -19,6 +20,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Serializable
 data class ChatMessage(val role: String, val content: String)
@@ -44,7 +46,14 @@ class IntranetLlmModel(
 
     override val name: String = modelName
     private val client = HttpClient(OkHttp) {
-        install(ContentNegotiation) { json() }
+        install(ContentNegotiation) {
+            json(Json { ignoreUnknownKeys = true })
+        }
+        install(HttpTimeout) {
+            requestTimeoutMillis = 60_000
+            connectTimeoutMillis = 15_000
+            socketTimeoutMillis = 60_000
+        }
     }
 
     override fun generateContent(request: LlmRequest, stream: Boolean): Flow<LlmResponse> = flow {

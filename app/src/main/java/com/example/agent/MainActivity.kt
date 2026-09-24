@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initDebug()
 
         binding.sendButton.setOnClickListener {
             val userInput = binding.inputEditText.text?.toString().orEmpty()
