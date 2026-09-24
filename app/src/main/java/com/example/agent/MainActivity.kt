@@ -4,16 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.agent.databinding.ActivityMainBinding
-import com.google.adk.kt.runners.InMemoryRunner
-import com.google.adk.kt.sessions.InMemorySessionService
-import com.google.adk.kt.types.Content
-import com.google.adk.kt.types.Part
-import com.google.adk.kt.types.Role
-import com.google.firebase.Firebase
-import com.google.firebase.appcheck.appCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
-import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
-import com.google.firebase.initialize
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
