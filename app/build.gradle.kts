@@ -55,29 +55,9 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.material)
 
-    // Import the BoM for the Firebase platform
-    implementation(platform(libs.firebase.bom))
-    // Add the dependencies for the Firebase AI Logic and App Check libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation(libs.firebase.ai)
-    implementation(libs.firebase.appcheck.debug)
-
-    // firbase app check 用到了
-    implementation(libs.firebase.appcheck.playintegrity)
-    // 切换firebase model 用到了
-    implementation(libs.google.adk.kotlin.firebase.android)
-
-    // adk
-    implementation(libs.google.adk.kotlin.core.android)
-    ksp(libs.google.adk.kotlin.processor)
-
-    implementation("org.reactivestreams:reactive-streams:1.0.4")
-
-    // 定制 LLM model 用到了
-    implementation("io.ktor:ktor-client-core:3.6.0")
-    implementation("io.ktor:ktor-client-okhttp:3.6.0")
-    implementation("io.ktor:ktor-client-content-negotiation:3.6.0")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.0")
+    implementation("ai.koog:koog-agents:1.3.0")
+    implementation("ai.koog:http-client-ktor:1.3.0")
+    implementation("ai.koog:agents-features-memory:1.3.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)

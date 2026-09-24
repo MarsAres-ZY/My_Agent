@@ -19,14 +19,8 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-
-    // Runner 和 SessionService 通常只需要创建一次，
-    // 可以放在 Activity / ViewModel 的生命周期内复用
-    private val sessionService = InMemorySessionService()
-    private val runner = InMemoryRunner(
-        agent = RootAgent.create(context = this),
-        sessionService = sessionService,
-    )
+    private val agent by lazy { KoogAgentFactory.create(applicationContext) }
+    private val sessionId = "session-123"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,47 +30,20 @@ class MainActivity : AppCompatActivity() {
         binding.sendButton.setOnClickListener {
             val userInput = binding.inputEditText.text?.toString().orEmpty()
             if (userInput.isNotBlank()) {
-                askAgent(userInput)
+                askKoogAgent(userInput)
+                binding.inputEditText.text = null
             }
         }
     }
 
-    private fun askAgent(userInput: String) {
+    private fun askKoogAgent(userInput: String) {
         binding.resultTextView.text = "思考中…"
-
         lifecycleScope.launch {
-            runner.runAsync(
-                userId = "user-123",
-                sessionId = "session-123",
-                newMessage = Content(
-                    role = Role.USER,
-                    parts = listOf(Part(text = userInput)),
-                ),
-            ).collect { event ->
-                val text = event.content?.parts?.firstOrNull()?.text
-                if (!text.isNullOrBlank()) {
-                    // 简单起见直接覆盖显示，真实场景可以做增量拼接/打字机效果
-                    binding.resultTextView.text = text
-                }
+            binding.resultTextView.text = try {
+                agent.run(userInput,sessionId)
+            } catch (e: Exception) {
+                "出错：${e.message}"
             }
         }
-    }
-
-    private fun init() {
-        // [START appcheck_initialize]
-        Firebase.initialize(context = this)
-        Firebase.appCheck.installAppCheckProviderFactory(
-            PlayIntegrityAppCheckProviderFactory.getInstance(),
-        )
-        // [END appcheck_initialize]
-    }
-
-    private fun initDebug() {
-        // [START appcheck_initialize_debug]
-        Firebase.initialize(context = this)
-        Firebase.appCheck.installAppCheckProviderFactory(
-            DebugAppCheckProviderFactory.getInstance(),
-        )
-        // [END appcheck_initialize_debug]
     }
 }
