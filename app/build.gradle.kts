@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("com.google.devtools.ksp") version "2.3.6"
     id("com.google.gms.google-services")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -70,11 +71,13 @@ dependencies {
     implementation(libs.google.adk.kotlin.core.android)
     ksp(libs.google.adk.kotlin.processor)
 
+    implementation("org.reactivestreams:reactive-streams:1.0.4")
+
+    // 定制 LLM model 用到了
     implementation("io.ktor:ktor-client-core:3.6.0")
     implementation("io.ktor:ktor-client-okhttp:3.6.0")
     implementation("io.ktor:ktor-client-content-negotiation:3.6.0")
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
