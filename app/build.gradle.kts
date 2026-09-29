@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp") version "2.3.6"
-    id("com.google.gms.google-services")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -54,18 +53,6 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.material)
-
-    // Import the BoM for the Firebase platform
-    implementation(platform(libs.firebase.bom))
-    // Add the dependencies for the Firebase AI Logic and App Check libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation(libs.firebase.ai)
-    implementation(libs.firebase.appcheck.debug)
-
-    // firbase app check 用到了
-    implementation(libs.firebase.appcheck.playintegrity)
-    // 切换firebase model 用到了
-    implementation(libs.google.adk.kotlin.firebase.android)
 
     // adk
     implementation(libs.google.adk.kotlin.core.android)
