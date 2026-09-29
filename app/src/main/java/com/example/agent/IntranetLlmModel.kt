@@ -4,8 +4,7 @@ import com.google.adk.kt.models.LlmRequest
 import com.google.adk.kt.models.LlmResponse
 import com.google.adk.kt.models.Model
 import com.google.adk.kt.types.Content
-import com.google.adk.kt.types.FunctionCall          // ⚠️ 按实际类名核对
-import com.google.adk.kt.types.FunctionResponse      // ⚠️ 按实际类名核对
+import com.google.adk.kt.types.FunctionCall
 import com.google.adk.kt.types.Part
 import com.google.adk.kt.types.Role
 import io.ktor.client.HttpClient

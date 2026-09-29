@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp") version "2.3.6"
-    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
