@@ -9,11 +9,6 @@ import com.google.adk.kt.sessions.InMemorySessionService
 import com.google.adk.kt.types.Content
 import com.google.adk.kt.types.Part
 import com.google.adk.kt.types.Role
-import com.google.firebase.Firebase
-import com.google.firebase.appcheck.appCheck
-import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
-import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
-import com.google.firebase.initialize
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -60,23 +55,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun init() {
-        // [START appcheck_initialize]
-        Firebase.initialize(context = this)
-        Firebase.appCheck.installAppCheckProviderFactory(
-            PlayIntegrityAppCheckProviderFactory.getInstance(),
-        )
-        // [END appcheck_initialize]
-    }
-
-    private fun initDebug() {
-        // [START appcheck_initialize_debug]
-        Firebase.initialize(context = this)
-        Firebase.appCheck.installAppCheckProviderFactory(
-            DebugAppCheckProviderFactory.getInstance(),
-        )
-        // [END appcheck_initialize_debug]
     }
 }
